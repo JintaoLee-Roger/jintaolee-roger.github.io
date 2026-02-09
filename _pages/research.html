@@ -1,0 +1,103 @@
+---
+layout: archive
+title: "Research"
+permalink: /research/
+author_profile: true
+---
+
+{% include base_path %}
+
+<div style="max-width: 900px;">
+
+{% assign topics = site.research | sort:"order" | reverse %}
+{% for item in topics %}
+
+  {% unless item.published == false %}
+
+    {% assign target_link = item.external_url | default: item.url %}
+    
+    {% if item.external_url %}
+      {% assign target_attr = 'target="_blank"' %}
+      {% assign target_link = target_link %}
+    {% else %}
+      {% assign target_attr = '' %}
+      {% assign target_link = target_link | relative_url %}
+    {% endif %}
+    
+    <div style="margin-bottom:3em;">
+
+      {% if item.has_details %}
+        <h2 style="margin-bottom:0.2em; font-weight:700;">
+          <a href="{{ target_link }}" {{ target_attr }} style="text-decoration:none;">
+            {{ item.title }}
+          </a>
+        </h2>
+      {% else %}
+        <h2 style="margin-bottom:0.2em; font-weight:700; color:#000;">
+          {{ item.title }}
+        </h2>
+      {% endif %}
+
+      {% if item.subtitle_cn %}
+        <div style="font-size:1.05em; color:#555; margin-top:-0.4em; margin-bottom:0.8em;">
+          {{ item.subtitle_cn }}
+        </div>
+      {% endif %}
+
+      {% if item.image %}
+        {% assign max_width = item.image_max_width | default: "850px" %}
+        <img src="{{ item.image }}"
+          style="width:100%; max-width:{{ max_width }}; border-radius:10px; box-shadow:0 4px 10px #aaa; display: block; margin:15px auto;">
+      {% endif %}
+
+      <div style="font-size:1.05em; margin-bottom:1em; text-align: justify;">
+        {{ item.excerpt | markdownify }}
+      </div>
+
+      {% if item.paper or item.link or item.pdf or item.code or item.supp %}
+        <div style="color:#555; font-size:0.95em; margin-bottom:0.8em;">
+          {% if item.paper %}
+            <b>Related Publication:</b> {{ item.paper }}<br>
+          {% endif %}
+
+          <div style="margin-top:0.3em;">
+            {% if item.link %}
+              <a href="{{ item.link }}" target="_blank">[Paper]</a>
+            {% endif %}
+            {% if item.pdf %}
+              <a href="{{ item.pdf }}" target="_blank">[PDF]</a>
+            {% endif %}
+            {% if item.code %}
+              <a href="{{ item.code }}" target="_blank">[Code]</a>
+            {% endif %}
+            {% if item.docs %}
+              <a href="{{ item.docs }}" target="_blank">[Docs]</a>
+            {% endif %}
+            {% if item.pypi %}
+              <a href="{{ item.pypi }}" target="_blank">[PyPi]</a>
+            {% endif %}
+            {% if item.supp %}
+              <a href="{{ item.supp }}" target="_blank">[Supp]</a>
+            {% endif %}
+          </div>
+
+        </div>
+      {% endif %}
+
+      {% if item.has_details %}
+        <a href="{{ target_link }}"
+           {{ target_attr }}
+           style="font-weight:600;">
+          → Read More
+        </a>
+      {% endif %}
+
+    </div>
+
+    <hr style="margin:2em 0;">
+
+  {% endunless %}
+
+{% endfor %}
+
+</div>

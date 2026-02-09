@@ -1,0 +1,151 @@
+---
+layout: archive
+title: "Publications"
+permalink: /publications/
+author_profile: true
+group_by_year: false 
+---
+
+<style>
+/* 悬挂缩进和编号样式（与之前保持一致） */
+.pub-entry {
+    display: flex;
+    align-items: flex-start; 
+    margin-bottom: 1.5em; 
+    line-height: 1.5; 
+}
+
+.pub-number {
+    flex-shrink: 0;
+    width: 40px; 
+    text-align: right; 
+    padding-right: 10px;
+}
+
+.pub-content {
+    flex-grow: 1;
+    flex-shrink: 1; 
+}
+
+/* 🆕 低调的年份标签样式 */
+.year-label {
+    /* 使用 flex 布局来包裹年份标签和内容，以便年份可以独立于列表项对齐 */
+    display: flex;
+    align-items: flex-start;
+    margin-top: 1.5em; /* 在年份块上方留出一些空间 */
+    margin-bottom: 1em;
+}
+
+.year-label-content {
+    /* 年份数字本身 */
+    flex-shrink: 0;
+    font-size: 1.1em;
+    /* font-weight: bold; */
+    color: #444; /* 深灰色 */
+    padding: 0 10px;
+    border-left: 4px solid #aaa; /* 低调的左侧边框 */
+    margin-right: 15px; /* 年份和内容之间留出空间 */
+    text-align: right;
+    width: 50px; /* 给年份数字一个固定宽度 */
+}
+
+/* 确保内容从年份标签右侧开始 */
+.year-group-content {
+    flex-grow: 1;
+    /* 避免内容和年份标签对齐在同一行时，内容被拉伸到最左边 */
+    margin-left: 0; 
+}
+
+</style>
+
+
+<div style="max-width: 900px;">
+
+<div style="margin-bottom:1em; text-align: justify;">
+I actively contribute to the field of <b>AI4Geoscience</b> by designing and 
+deploying machine learning solutions for complex data environments like seismic and DAS. 
+My work addresses practical needs in subsurface data processing, interpretation, inversion, 
+modeling and geophysical monitoring. 
+This research, which integrates Earth Science with computational methods, 
+has been published in journals such as <b>Geophysics, IEEE TIP, Communications Engineering, 
+IEEE TGRS and Computers & Geosciences</b>.
+</div>
+
+<hr style="margin:1em 0;">
+
+{% if site.author.googlescholar %}
+  <div class="wordwrap">You can find my full publications on <a href="{{site.author.googlescholar}}">Google Scholar profile</a>.</div>
+{% endif %}
+
+
+{{ "(<b><sup>*</sup></b>:equal contribution, <b><sup>†</sup></b>:corresponding author) " | markdownify }}
+
+
+{{ "## Under Revision and Preprints" | markdownify }}
+
+{% assign pubs = site.publications | where_exp: "item", "item.path contains 'preprints/'" | sort: 'date' | reverse %}
+{% for pub in pubs %}
+<div class="pub-entry">
+  <span class="pub-number">[{{ forloop.rindex }}]</span>
+  <span class="pub-content">
+    {{ pub.content | markdownify | remove: '<p>' | remove: '</p>' }}
+  </span>
+</div>
+{% endfor %}
+
+<hr style="margin:1em 0;">
+
+{{ "## Published Papers" | markdownify }}
+{% assign published_pubs = site.publications | where_exp: "item", "item.path contains 'published/'" | sort: 'order' | reverse %}
+{% assign current_year = 0 %} 
+
+{% for pub in published_pubs %}
+
+  {% if page.group_by_year %}
+    {% if pub.year != current_year %}
+      <div class="year-label">
+        <div class="year-label-content">{{ pub.year }}</div>
+        {% assign current_year = pub.year %}
+      </div>
+    {% endif %}
+  {% endif %}
+  
+  <div class="pub-entry">
+    <span class="pub-number">[{{ pub.order }}]</span>
+    <span class="pub-content">
+      {{ pub.content | markdownify | remove: '<p>' | remove: '</p>' }}
+    </span>
+  </div>
+{% endfor %}
+
+<hr style="margin:2em 0;">
+
+{{ "## Conference Abstracts and Presentations" | markdownify }}
+{% assign conf_pubs = site.publications | where_exp: "item", "item.path contains 'eiconf/'" | sort: 'order' | reverse %}
+{% for pub in conf_pubs %}
+<div class="pub-entry">
+  <span class="pub-number">[{{ pub.order }}]</span>
+  <span class="pub-content">
+    {{ pub.content | markdownify | remove: '<p>' | remove: '</p>' }}
+  </span>
+</div>
+{% endfor %}
+
+
+{{ "## Main Co-Authors and Collaborators" | markdownify }}
+
+<a href="https://cig.ustc.edu.cn/xinming/list.htm">Xinming Wu (USTC)</a><br>
+<a href="https://person.zju.edu.cn/0025030">Weichang Li (ZJU)</a><br>
+<a href="https://cig.ustc.edu.cn/xiaoming/list.htm">Xiaoming Sun (USTC)</a><br>
+<a href="https://kdd-code.github.io">Zhanxuan Hu</a><br>
+<a href="https://scholar.google.com/citations?user=v5CJZu4AAAAJ">Tao Zhao (SLB)</a><br>
+<a href="https://shenghanlin.github.io/">Hanlin Sheng</a><br>
+<a href="https://sixu0.github.io/">Xu Si (Georgia Tech)</a><br>
+<a href="https://xcui1997.github.io/">Xin Cui (USTC)</a><br>
+<a href="https://cig.ustc.edu.cn/hui/list.htm">Hui Gao (USTC)</a><br>
+<a href="https://cog.cdut.edu.cn/info/1016/6686.htm">Yaxing Li</a><br>
+<a href="">Jiarun Yang</a><br>
+...
+
+
+</div>
