@@ -5,7 +5,7 @@ image: /images/pubs/ce25infer/ce25infer.png
 order: 101
 paper: "<b>Li, J.</b> and Wu, X., 2026. Memory-Efficient Full-Volume Inference for Large-Scale 3D Dense Prediction without Performance Degradation. <b>Communications Engineering</b>. <br>(This paper was unanimously recognized by all three named reviewers: <a href=\"https://mts-commseng.nature.com/commseng_files/2025/11/26/00002959/02/2959_2_tpr_0_t69g1p_convrt.pdf\">Peer Review File</a>)" 
 link: https://doi.org/10.1038/s44172-025-00576-2   # 可选：指向论文
-pdf: 
+pdf: /files/pubs/li26infer_ce.pdf
 code: https://github.com/JintaoLee-Roger/torchseis
 supp: https://static-content.springer.com/esm/art%3A10.1038%2Fs44172-025-00576-2/MediaObjects/44172_2025_576_MOESM2_ESM.pdf
 has_details: true
@@ -81,12 +81,15 @@ All data and benchmark results (e.g., runtime, memory usage, and error scores) t
 If you find this work useful in your research, please consider citing:
 
 ```bibtex
-@article{li2026Memory,
-  title={Memory-Efficient Full-Volume Inference for Large-Scale 3D Dense Prediction without Performance Degradation},
+@article{li2026memory,
+  title={Memory-efficient full-volume inference for large-scale 3D dense prediction without performance degradation},
   author={Li, Jintao and Wu, Xinming},
   journal={Communications Engineering},
+  volume={5},
+  number={1},
+  pages={20},
   year={2026},
-  publisher={Nature Publishing Group UK London},
-  doi={10.1038/s44172-025-00576-2}
+  doi={10.1038/s44172-025-00576-2},
+  publisher={Nature Publishing Group UK London}
 }
 ```
