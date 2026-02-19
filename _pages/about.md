@@ -64,7 +64,7 @@ My research interests lie at the intersection of machine learning and geophysics
     <b>High‑Fidelity Seismic Super‑Resolution Using Prior‑Informed Deep Learning with 3D Awareness</b><br>
     <span style="font-weight:350;">  <b>Jintao Li</b>, Xinming Wu, Xianwen Zhang, Xin Du, Xiaoming Sun, Bao Deng and Guangyu Wang </span><br>
     <b>IEEE Transactions on Image Processing 2026</b> <span style="color:red;"> [CCF-A, IF 13.7!] </span><br>
-    <!-- <a href="https://lsss">[paper]</a> -->
+    <a href="https://ieeexplore.ieee.org/document/11399639">[paper]</a>
     <!-- <a href="https://github.com/JintaoLee-Roger">[code]</a> -->
     <a href="/research/2025-sr-tip">[More Details]</a>
     <br>
