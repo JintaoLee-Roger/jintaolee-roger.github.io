@@ -5,7 +5,7 @@ image: /images/pubs/tip25sr/tip25sr.png
 order: 102
 paper: "<b>Li, J.</b>, Wu, X., Zhang, X., Du, X., Sun, X., Deng, B. and Wang, G., 2025. High‑Fidelity Seismic Super‑Resolution Using Prior‑Informed Deep Learning with 3D Awareness. IEEE Transactions on Image Processing. "
 link: https://ieeexplore.ieee.org/document/11399639
-pdf: /files/pubs/li26tip-sr.pdf
+pdf: /files/pubs/li2026tip-sr.pdf
 has_details: true
 ---
 
