@@ -1,0 +1,12 @@
+{% include base_path %}
+
+<div class="page__footer-copyright">
+  Copyright &copy; {{ site.time | date: '%Y' }} <strong>{{ site.name | default: site.title }}</strong>. &nbsp;
+
+  {{ site.data.ui-text[site.locale].powered_by | default: "Powered by" }} Jekyll &amp; AcademicPages. &nbsp;
+
+  <span class="site-update-info">Site last updated {{ "now" | date: '%Y-%m-%d' }}.</span> &nbsp;
+
+  <a href="{{ base_path }}/sitemap/">Sitemap</a>.
+
+</div>

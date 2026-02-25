@@ -1,0 +1,63 @@
+---
+layout: archive
+title: "Software"
+permalink: /software/
+author_profile: true
+---
+
+{% include base_path %}
+
+<div style="max-width: 900px;">
+<div style="font-size: 1.1em; margin-bottom: 2em; padding: 1em; border-left: 4px solid #ff9800; background: #fff8e1;">
+  <b>🚧 Software page under construction</b><br>
+  This page is being updated. More detailed software descriptions, figures, and summaries will be added soon. You can find more details at the <a href="https://github.com/JintaoLee-Roger">Github</a>.
+</div>
+
+{% assign tools = site.software | sort: "order" %}
+{% for tool in tools %}
+
+  <div style="margin-bottom:2em;">
+    
+    {% if tool.image %}
+    <img src="{{ tool.image }}" 
+         style="width:40%; border-radius:10px; box-shadow:0 4px 10px #aaa; margin-bottom:1em;">
+    {% endif %}
+    
+    <h2>{{ tool.title }}</h2>
+
+    {{ tool.content | markdownify }}
+
+    <div style="margin-top:0.5em;">
+
+      <!-- {# ---------------- GitHub ---------------- #} -->
+      {% if tool.github %}
+        <a href="{{ tool.github }}">GitHub</a>
+        <img src="https://img.shields.io/github/stars/{{ tool.github | replace:'https://github.com/','' }}?style=social"
+             style="vertical-align:middle; margin-right:10px;">
+      {% endif %}
+
+      <!-- {# ---------------- PyPI ---------------- #} -->
+      {% if tool.pypi %}
+        <a href="https://pypi.org/project/{{ tool.pypi }}/">PyPI</a>
+        <img src="https://img.shields.io/pypi/v/{{ tool.pypi }}.svg"
+             style="vertical-align:middle; margin-right:10px;">
+        <img src="https://img.shields.io/pypi/dm/{{ tool.pypi }}.svg"
+             style="vertical-align:middle; margin-right:10px;">
+      {% endif %}
+
+      <!-- {# ---------------- ReadTheDocs ---------------- #} -->
+      {% if tool.rtd %}
+        <a href="https://{{ tool.rtd }}.readthedocs.io/">Docs</a>
+        <img src="https://readthedocs.org/projects/{{ tool.rtd }}/badge/?version=latest"
+             style="vertical-align:middle; margin-right:10px;">
+      {% endif %}
+
+    </div>
+
+  </div>
+
+  <hr>
+
+{% endfor %}
+
+</div>
