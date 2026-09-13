@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getSiteSettings } from "../lib/content";
+
+const settings = await getSiteSettings();
+---
+
+<BaseLayout title={`Page not found | ${settings.name.en}`} description="The requested page could not be found." settings={settings}>
+  <section class="page-hero not-found-page">
+    <p class="kicker">404</p>
+    <h1><span class="i18n i18n-zh">没有找到这个页面</span><span class="i18n i18n-en">Page not found</span></h1>
+    <p><span class="i18n i18n-zh">这个链接可能已经变化，或者页面尚未发布。</span><span class="i18n i18n-en">The link may have changed, or the page has not been published.</span></p>
+    <a class="text-link" href="/"><span class="i18n i18n-zh">返回首页</span><span class="i18n i18n-en">Return home</span></a>
+  </section>
+</BaseLayout>

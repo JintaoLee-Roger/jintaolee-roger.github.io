@@ -1,0 +1,18 @@
+---
+interface LocalizedText {
+  zh: string;
+  en: string;
+}
+
+interface Props {
+  value: LocalizedText;
+  as?: keyof HTMLElementTagNameMap;
+  class?: string;
+}
+
+const { value, as = "span", class: className = "" } = Astro.props as Props;
+const Tag = as;
+---
+
+<Tag class:list={["i18n i18n-zh", className]}>{value.zh}</Tag>
+<Tag class:list={["i18n i18n-en", className]}>{value.en}</Tag>

@@ -1,0 +1,214 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ProfileSidebar from "../components/ProfileSidebar.astro";
+import "katex/dist/katex.min.css";
+import "../styles/global.css";
+
+const { title, description, settings, image = "/images/jintao.jpeg" } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL(image, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#faf9f5" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{title}</title>
+    <script is:inline>
+      (() => {
+        try {
+          localStorage.removeItem("lang");
+          const storedLang = sessionStorage.getItem("site-lang");
+          const lang = storedLang === "zh" ? "zh" : "en";
+          document.documentElement.dataset.lang = lang;
+          document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+          const storedTheme = localStorage.getItem("theme");
+          document.documentElement.dataset.theme = storedTheme || "light";
+        } catch {
+          document.documentElement.dataset.lang = "en";
+          document.documentElement.lang = "en";
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="reading-progress" aria-hidden="true"><span data-reading-progress></span></div>
+    <Header settings={settings} />
+    <div class="site-frame">
+      <ProfileSidebar settings={settings} />
+      <main id="main" class="main-content">
+        <slot />
+      </main>
+    </div>
+    <Footer settings={settings} />
+    <button class="back-to-top" type="button" aria-label="Back to top" data-back-to-top>↑</button>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const menuToggle = document.querySelector("[data-menu-toggle]");
+        const nav = document.querySelector("[data-primary-nav]");
+        const themeToggle = document.querySelector("[data-theme-toggle]");
+        const progress = document.querySelector("[data-reading-progress]");
+        const backToTop = document.querySelector("[data-back-to-top]");
+
+        const setLang = (lang) => {
+          root.dataset.lang = lang;
+          root.lang = lang === "en" ? "en" : "zh-CN";
+          try {
+            sessionStorage.setItem("site-lang", lang);
+          } catch {}
+          document.querySelectorAll("[data-lang-option]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(button.dataset.langOption === lang));
+          });
+        };
+
+        document.querySelectorAll("[data-lang-option]").forEach((button) => {
+          button.addEventListener("click", () => setLang(button.dataset.langOption));
+        });
+
+        const setTheme = (theme) => {
+          root.dataset.theme = theme;
+          themeToggle?.setAttribute("aria-pressed", String(theme === "dark"));
+          try {
+            localStorage.setItem("theme", theme);
+          } catch {}
+        };
+
+        themeToggle?.addEventListener("click", () => {
+          setTheme(root.dataset.theme === "dark" ? "light" : "dark");
+        });
+
+        menuToggle?.addEventListener("click", () => {
+          const isOpen = root.dataset.menuOpen === "true";
+          root.dataset.menuOpen = String(!isOpen);
+          menuToggle.setAttribute("aria-expanded", String(!isOpen));
+          nav?.setAttribute("data-open", String(!isOpen));
+        });
+
+        nav?.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            root.dataset.menuOpen = "false";
+            menuToggle?.setAttribute("aria-expanded", "false");
+            nav.setAttribute("data-open", "false");
+          });
+        });
+
+        const copyText = async (value) => {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(value);
+            return;
+          }
+
+          const textarea = document.createElement("textarea");
+          textarea.value = value;
+          textarea.style.position = "fixed";
+          textarea.style.opacity = "0";
+          document.body.append(textarea);
+          textarea.select();
+          const copied = Reflect.get(document, "execCommand").call(document, "copy");
+          textarea.remove();
+          if (!copied) throw new Error("Unable to copy citation");
+        };
+
+        document.querySelectorAll("[data-citation-root]").forEach((citationRoot) => {
+          const toggle = citationRoot.querySelector("[data-cite-toggle]");
+          const panel = citationRoot.querySelector("[data-citation-panel]");
+          const tabs = [...citationRoot.querySelectorAll("[data-citation-tab]")];
+          const outputs = [...citationRoot.querySelectorAll("[data-citation-format]")];
+          const copyButton = citationRoot.querySelector("[data-copy-citation]");
+          const status = citationRoot.querySelector("[data-copy-status]");
+          let statusTimer;
+
+          const activateTab = (tab) => {
+            const format = tab.dataset.citationTab;
+            tabs.forEach((item) => {
+              const selected = item === tab;
+              item.setAttribute("aria-selected", String(selected));
+              item.tabIndex = selected ? 0 : -1;
+            });
+            outputs.forEach((output) => {
+              output.hidden = output.dataset.citationFormat !== format;
+            });
+            if (status) status.textContent = "";
+          };
+
+          toggle?.addEventListener("click", () => {
+            const willOpen = panel.hidden;
+            panel.hidden = !willOpen;
+            toggle.setAttribute("aria-expanded", String(willOpen));
+          });
+
+          tabs.forEach((tab, index) => {
+            tab.addEventListener("click", () => activateTab(tab));
+            tab.addEventListener("keydown", (event) => {
+              if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+              event.preventDefault();
+              const direction = event.key === "ArrowRight" ? 1 : -1;
+              const nextTab = tabs[(index + direction + tabs.length) % tabs.length];
+              activateTab(nextTab);
+              nextTab.focus();
+            });
+          });
+
+          copyButton?.addEventListener("click", async () => {
+            const activeOutput = outputs.find((output) => !output.hidden);
+            if (!activeOutput) return;
+
+            clearTimeout(statusTimer);
+            try {
+              await copyText(activeOutput.textContent.trim());
+              if (status) status.textContent = root.dataset.lang === "zh" ? "已复制" : "Copied";
+            } catch {
+              if (status) status.textContent = root.dataset.lang === "zh" ? "复制失败" : "Copy failed";
+            }
+            statusTimer = window.setTimeout(() => {
+              if (status) status.textContent = "";
+            }, 1800);
+          });
+
+          citationRoot.addEventListener("keydown", (event) => {
+            if (event.key !== "Escape" || panel.hidden) return;
+            panel.hidden = true;
+            toggle?.setAttribute("aria-expanded", "false");
+            toggle?.focus();
+          });
+        });
+
+        setLang(root.dataset.lang || "en");
+        setTheme(root.dataset.theme || "light");
+
+        const updateScrollState = () => {
+          const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+          const ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
+          if (progress) progress.style.transform = `scaleX(${Math.min(1, Math.max(0, ratio))})`;
+          backToTop?.toggleAttribute("data-visible", window.scrollY > 640);
+        };
+
+        window.addEventListener("scroll", updateScrollState, { passive: true });
+        backToTop?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+        updateScrollState();
+      })();
+    </script>
+    {import.meta.env.PROD && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token":"a8a38aec55634aaf8096d743a10fa84a"}'
+      ></script>
+    )}
+  </body>
+</html>

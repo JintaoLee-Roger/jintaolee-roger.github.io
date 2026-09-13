@@ -1,0 +1,114 @@
+% Main entry point. Section content lives in the matching subfiles below.
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+
+\input{reference-style.tex}
+\input{bibliography-config.tex}
+
+\usepackage{longtable}
+\usepackage{bookmark}
+\usepackage{fontawesome}
+\usepackage{ragged2e}
+\usepackage{needspace}
+\usepackage{kpfonts}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\input{colors.tex}
+\usepackage{hyperref}
+\urlstyle{same}
+\hypersetup{
+    colorlinks=true,
+    breaklinks=true,
+    linkcolor=cornflowerblue,
+    urlcolor=cornflowerblue,
+    anchorcolor=cornflowerblue,
+    citecolor=cornflowerblue,
+    pdftitle={Jintao Li - Curriculum Vitae},
+    pdfauthor={Jintao Li},
+    bookmarksopen=true,
+}
+
+\usepackage{enumitem}
+
+
+\newcommand{\mytitle}[4]{
+  \begin{center}
+    \Large\textbf{#1}\normalsize \\
+    \href{mailto:#2}{#2} \\
+    \href{#3}{#3} \\
+    #4
+  \end{center}
+}
+
+% Set to true after adding entries to invited_talks.tex.
+\newif\ifshowinvitedtalks
+\showinvitedtalksfalse
+
+\begin{document}
+\mytitle{Jintao Li}{lijintao@zju.edu.cn}{https://jintaolee-roger.github.io}{Zhejiang University, Hangzhou, Zhejiang, China}
+
+\RaggedRight
+\setlength{\emergencystretch}{1em}
+
+\pdfbookmark[1]{Experience}{exp_research}
+\section*{Experience}
+\label{exp_research}
+\input{exp_research.tex}
+
+\pdfbookmark[1]{Education}{education}
+\section*{Education}
+\label{education}
+\input{education.tex}
+\pdfbookmark[1]{Research Interests}{research-interests}
+\section*{Research Interests}
+\label{research_int}
+\input{research_int.tex}
+
+\pdfbookmark[1]{Research Funding}{funding}
+\section*{Research Funding}
+\label{funding}
+\input{funding.tex}
+\Needspace{12\baselineskip}
+\pdfbookmark[1]{Publications}{pubs}
+\section*{Publications}
+\label{pubs}
+
+\vspace{-.75em}
+\small
+\faGoogle~\href{https://scholar.google.com/citations?user=_g2xGUwAAAAJ&hl=en}{Google Scholar profile}\\
+$* \rightarrow$ Equal contribution, $\dagger \rightarrow$ corresponding author
+\normalsize
+\nocite{*}
+\input{publications.tex}
+
+\pdfbookmark[1]{Tools \& Software}{tools}
+\section*{Tools \& Software}
+\label{tools}
+\input{tools.tex}
+\Needspace{8\baselineskip}
+\pdfbookmark[1]{Awards \& Honors}{awards}
+\section*{Awards \& Honors}
+\label{awards}
+\input{awards.tex}
+\pdfbookmark[1]{Teaching}{teaching}
+\section*{Teaching}
+\label{teaching}
+\input{teaching.tex}
+\ifshowinvitedtalks
+  \pdfbookmark[1]{Invited Talks}{invited-talks}
+  \section*{Invited Talks}
+  \label{invited-talks}
+  \input{invited_talks.tex}
+\fi
+\Needspace{18\baselineskip}
+\pdfbookmark[1]{Academic Service}{service}
+\section*{Academic Service}
+\label{service}
+\input{service.tex}
+\vfill
+\centering
+\rule{0.25\linewidth}{0.4pt}\\
+\medskip
+Last updated: \today
+
+\end{document}

@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { getSiteSettings } from "../lib/content";
+
+const settings = await getSiteSettings();
+
+const tools = [
+  {
+    title: "CIGVis",
+    subtitle: "Real-time multidimensional geophysical data visualization",
+    image: "/images/pubs/geo24cigvis_s.png",
+    summary: "An open-source Python tool for interactive visualization of 3D seismic data, faults, horizons, geological bodies, and well logs.",
+    links: [
+      { label: "GitHub", href: "https://github.com/JintaoLee-Roger/cigvis" },
+      { label: "Docs", href: "https://cigvis.readthedocs.io/" },
+      { label: "PyPI", href: "https://pypi.org/project/cigvis/" },
+    ],
+  },
+  {
+    title: "torchseis",
+    subtitle: "Efficient 3D inference workflows for geophysical deep learning",
+    image: "/images/pubs/ce25infer/ce25infer_s.png",
+    summary: "Code and utilities around memory-efficient full-volume inference for large-scale 3D dense prediction.",
+    links: [
+      { label: "GitHub", href: "https://github.com/JintaoLee-Roger/torchseis" },
+      { label: "Paper", href: "https://doi.org/10.1038/s44172-025-00576-2" },
+    ],
+  },
+  {
+    title: "SeismicSuperResolution",
+    subtitle: "Deep learning for seismic super-resolution and denoising",
+    image: "/images/pubs/tgrs21sr_s.png",
+    summary: "Reference implementation and materials for simultaneous seismic image super-resolution and denoising.",
+    links: [
+      { label: "GitHub", href: "https://github.com/JintaoLee-Roger/SeismicSuperResolution" },
+      { label: "Paper", href: "https://ieeexplore.ieee.org/document/9364884/" },
+    ],
+  },
+];
+---
+
+<BaseLayout title={`Software | ${settings.name.en}`} description="Open-source geophysical software" settings={settings}>
+  <section class="page-hero">
+    <p class="kicker"><span class="i18n i18n-zh">软件</span><span class="i18n i18n-en">Software</span></p>
+    <h1><span class="i18n i18n-zh">地球物理软件与开放工具</span><span class="i18n i18n-en">Geophysical software and open tools</span></h1>
+    <p><span class="i18n i18n-zh">面向地球物理可视化、深度学习推理和地震超分辨率的开放工具与可复现代码。</span><span class="i18n i18n-en">Open tools and reproducible code for geophysical visualization, deep-learning inference, and seismic super-resolution.</span></p>
+  </section>
+
+  <section class="section">
+    <SectionHeading
+      eyebrow={{ zh: "Open Source", en: "Open Source" }}
+      title={{ zh: "从可视化到高效三维推理", en: "From visualization to efficient 3D inference" }}
+    />
+    <div class="software-grid">
+      {tools.map((tool) => (
+        <article class="software-card">
+          <img src={tool.image} alt="" loading="lazy" />
+          <div class="software-card-body">
+            <p class="kicker">{tool.subtitle}</p>
+            <h2>{tool.title}</h2>
+            <p>{tool.summary}</p>
+            <div class="inline-links">
+              {tool.links.map((link) => <a href={link.href}>{link.label}</a>)}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

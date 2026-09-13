@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { getSiteSettings } from "../lib/content";
+import { cvDownloads } from "../lib/cv";
+
+const settings = await getSiteSettings();
+---
+
+<BaseLayout title={`CV | ${settings.name.en}`} description="Curriculum vitae" settings={settings}>
+  <section class="page-hero">
+    <p class="kicker"><span class="i18n i18n-zh">简历</span><span class="i18n i18n-en">CV</span></p>
+    <h1><span class="i18n i18n-zh">学术经历与简历下载</span><span class="i18n i18n-en">Academic background and CV downloads</span></h1>
+    <p><span class="i18n i18n-zh">研究经历、教育背景，以及中英文完整简历下载。</span><span class="i18n i18n-en">Research appointments, education, and downloadable curriculum vitae in English and Chinese.</span></p>
+    <div class="inline-links">
+      <a href={cvDownloads.cn}>中文 CV</a>
+      <a href={cvDownloads.en}>English CV</a>
+    </div>
+  </section>
+
+  <section class="section cv-section">
+    <SectionHeading
+      eyebrow={{ zh: "Experience", en: "Experience" }}
+      title={{ zh: "研究经历", en: "Appointments" }}
+    />
+    <div class="timeline-list">
+      <article>
+        <time>2025-Present</time>
+        <div>
+          <h2><span class="i18n i18n-zh">浙江大学博士后研究员</span><span class="i18n i18n-en">Postdoctoral Researcher, Zhejiang University</span></h2>
+          <p><span class="i18n i18n-zh">合作导师：李伟昌教授</span><span class="i18n i18n-en">Advisor: Prof. Weichang Li</span></p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section cv-section">
+    <SectionHeading
+      eyebrow={{ zh: "Funding", en: "Funding" }}
+      title={{ zh: "资助项目", en: "Funded Projects" }}
+    />
+    <div class="timeline-list funding-list">
+      <article>
+        <time>2027–2029</time>
+        <div>
+          <h2><span class="i18n i18n-zh">国家自然科学基金青年科学基金项目（C类）</span><span class="i18n i18n-en">Young Scientists Fund (Category C), National Natural Science Foundation of China</span></h2>
+          <p><span class="i18n i18n-zh">主持 · 资助编号：42604153</span><span class="i18n i18n-en">Principal Investigator · Grant No. 42604153</span></p>
+        </div>
+      </article>
+      <article>
+        <time>2026–2028</time>
+        <div>
+          <h2><span class="i18n i18n-zh">中国博士后科学基金第 79 批面上资助</span><span class="i18n i18n-en">China Postdoctoral Science Foundation, 79th General Program</span></h2>
+          <p><span class="i18n i18n-zh">主持 · 资助编号：2026M790497</span><span class="i18n i18n-en">Principal Investigator · Grant No. 2026M790497</span></p>
+        </div>
+      </article>
+      <article>
+        <time>2026–2028</time>
+        <div>
+          <h2><span class="i18n i18n-zh">国家资助博士后研究人员计划 B 档</span><span class="i18n i18n-en">Postdoctoral Fellowship Program (Grade B) of China Postdoctoral Science Foundation</span></h2>
+          <p><span class="i18n i18n-zh">主持 · 资助编号：GZB20260111</span><span class="i18n i18n-en">Principal Investigator · Grant No. GZB20260111</span></p>
+        </div>
+      </article>
+      <article>
+        <time>2026–2027</time>
+        <div>
+          <h2><span class="i18n i18n-zh">海洋精准感知技术全国重点实验室自主课题培育项目</span><span class="i18n i18n-en">Internal Research Incubation Program, State Key Laboratory of Ocean Precision Sensing Technology</span></h2>
+          <p><span class="i18n i18n-zh">主持 · 资助编号：OSZ-2025PY14 · 资助金额：10 万元 · 执行期：2026.01–2027.12</span><span class="i18n i18n-en">Principal Investigator · Grant No. OSZ-2025PY14 · RMB 100,000 · Jan. 2026–Dec. 2027</span></p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section cv-section section-muted">
+    <SectionHeading
+      eyebrow={{ zh: "Education", en: "Education" }}
+      title={{ zh: "教育背景", en: "Education" }}
+    />
+    <div class="timeline-list">
+      <article>
+        <time>2025</time>
+        <div>
+          <h2><span class="i18n i18n-zh">中国科学技术大学地球物理学博士</span><span class="i18n i18n-en">Ph.D. in Geophysics, University of Science and Technology of China</span></h2>
+          <p><span class="i18n i18n-zh">导师：伍新明教授</span><span class="i18n i18n-en">Advisor: Prof. Xinming Wu</span></p>
+        </div>
+      </article>
+      <article>
+        <time>2020</time>
+        <div>
+          <h2><span class="i18n i18n-zh">中国科学技术大学地球物理学学士</span><span class="i18n i18n-en">B.S. in Geophysics, University of Science and Technology of China</span></h2>
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,48 @@
+---
+import T from "./T.astro";
+
+const { settings } = Astro.props;
+
+type ProfileLink = { label: string; href: string };
+---
+
+<aside class="profile-sidebar" aria-label="Personal profile">
+  <div class="profile-card">
+    <img
+      class="profile-portrait"
+      src={settings.portrait}
+      alt="Portrait of Jintao Li"
+      width="720"
+      height="900"
+      fetchpriority="high"
+    />
+    <div class="profile-summary">
+      <p class="profile-name"><T value={settings.name} /></p>
+      <p class="profile-role"><T value={settings.role} /></p>
+      <p class="profile-affiliation"><T value={settings.affiliation} /></p>
+    </div>
+
+    <dl class="profile-details">
+      <div>
+        <dt><span class="i18n i18n-zh">方向</span><span class="i18n i18n-en">Field</span></dt>
+        <dd><T value={settings.field} /></dd>
+      </div>
+      <div>
+        <dt><span class="i18n i18n-zh">地点</span><span class="i18n i18n-en">Based in</span></dt>
+        <dd><T value={settings.location} /></dd>
+      </div>
+    </dl>
+
+    <a class="profile-email" href={`mailto:${settings.email}`}>{settings.email}</a>
+
+    <nav class="profile-links" aria-label="Academic profiles">
+      {settings.links.map((link: ProfileLink) => (
+        <a href={link.href}>
+          <span>{link.label}</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </nav>
+
+  </div>
+</aside>

@@ -1,0 +1,14 @@
+---
+import T from "./T.astro";
+
+const { settings } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-title">© {year} <T value={settings.name} /></p>
+    <p class="muted"><T value={settings.role} /> · <T value={settings.affiliation} /> · <T value={settings.location} /></p>
+    <a href={`mailto:${settings.email}`}>{settings.email}</a>
+  </div>
+</footer>

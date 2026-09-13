@@ -1,0 +1,155 @@
+% !TeX program = xelatex
+% Main entry point. Section content lives in the matching subfiles below.
+\documentclass[11pt,a4paper,fontset=none]{ctexart}
+
+% Fandol's OpenType metadata omits an explicit CJK script declaration even
+% though the glyph coverage is correct. Silence only that known false alarm.
+\ExplSyntaxOn
+\msg_redirect_name:nnn { fontspec } { script-not-exist } { none }
+\ExplSyntaxOff
+
+% Match the English CV's Kp text faces without loading the much heavier
+% kpfonts-otf math/unicode-math stack. Minimal setups keep Latin Modern.
+\IfFileExists{kpfonts-otf.sty}{%
+  \setmainfont{KpRoman}%
+  \setsansfont{KpSans}%
+  \setmonofont{KpMono}%
+}{}
+% Overleaf provides the harmonized Noto CJK serif/sans pair; local TeX
+% installations without it keep ctex's Fandol set.
+\IfFontExistsTF{Noto Serif CJK SC}{%
+  \setCJKmainfont{Noto Serif CJK SC}[ItalicFont={Noto Serif CJK SC}]%
+  \setCJKsansfont{Noto Sans CJK SC}[ItalicFont={Noto Sans CJK SC}]%
+  \setCJKmonofont{Noto Sans Mono CJK SC}%
+}{%
+  \setCJKmainfont{FandolSong-Regular.otf}[
+    BoldFont={FandolSong-Bold.otf},
+    ItalicFont={FandolKai-Regular.otf}
+  ]%
+  \setCJKsansfont{FandolHei-Regular.otf}[BoldFont={FandolHei-Bold.otf}]%
+  \setCJKmonofont{FandolFang-Regular.otf}%
+}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{longtable}
+\usepackage{bookmark}
+\usepackage{ragged2e}
+\usepackage{needspace}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\input{colors.tex}
+\usepackage{hyperref}
+
+\urlstyle{same}
+\hypersetup{
+  colorlinks=true,
+  breaklinks=true,
+  linkcolor=cornflowerblue,
+  urlcolor=cornflowerblue,
+  citecolor=cornflowerblue,
+  pdftitle={李金涛 - 学术简历},
+  pdfauthor={李金涛},
+  bookmarksopen=true
+}
+
+\input{reference-style.tex}
+\input{bibliography-config.tex}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{0pt}
+\setlist[itemize]{leftmargin=1.4em,itemsep=0.2em,topsep=0.2em}
+\renewcommand{\arraystretch}{1.08}
+\ctexset{
+  section={
+    format=\sffamily\Large\bfseries\raggedright,
+    beforeskip=2.5ex,
+    afterskip=1.2ex
+  },
+  subsection={
+    format=\sffamily\large\bfseries\raggedright,
+    beforeskip=2ex,
+    afterskip=1ex
+  }
+}
+
+\newcommand{\mytitle}[4]{%
+  \begin{center}
+    {\Large\bfseries #1}\par
+    \href{mailto:#2}{#2}\par
+    \href{#3}{#3}\par
+    #4
+  \end{center}}
+
+% 在 invited_talks.tex 中加入内容后，将 false 改为 true。
+\newif\ifshowinvitedtalks
+\showinvitedtalksfalse
+
+\begin{document}
+\pagestyle{plain}
+
+\mytitle{李金涛}{lijintao@zju.edu.cn}
+  {https://jintaolee-roger.github.io}
+  {浙江大学，中国浙江杭州}
+
+\RaggedRight
+\setlength{\emergencystretch}{1.5em}
+
+\pdfbookmark[1]{工作经历}{exp-research}
+\section*{工作经历}
+\input{exp_research.tex}
+
+\pdfbookmark[1]{教育经历}{education}
+\section*{教育经历}
+\input{education.tex}
+
+\pdfbookmark[1]{研究方向}{research-interests}
+\section*{研究方向}
+\input{research_int.tex}
+
+\pdfbookmark[1]{科研基金}{funding}
+\section*{科研基金}
+\input{funding.tex}
+\Needspace{12\baselineskip}
+\pdfbookmark[1]{论文发表}{publications}
+\section*{论文发表}
+\small
+\href{https://scholar.google.com/citations?user=_g2xGUwAAAAJ&hl=en}{Google Scholar}\\
+$* \rightarrow$ 共同第一作者，$\dagger \rightarrow$ 通讯作者
+\normalsize
+
+\nocite{*}
+\input{publications.tex}
+
+\pdfbookmark[1]{开源软件}{tools}
+\section*{开源软件}
+\input{tools.tex}
+
+\Needspace{8\baselineskip}
+\pdfbookmark[1]{荣誉}{awards}
+\section*{荣誉}
+\input{awards.tex}
+
+\pdfbookmark[1]{教学经验}{teaching}
+\section*{教学经验}
+\input{teaching.tex}
+
+\ifshowinvitedtalks
+  \pdfbookmark[1]{特邀报告}{invited-talks}
+  \section*{特邀报告}
+  \input{invited_talks.tex}
+\fi
+
+\Needspace{18\baselineskip}
+\pdfbookmark[1]{学术服务}{service}
+\section*{学术服务}
+\input{service.tex}
+
+\vfill
+\begin{center}
+  \rule{0.25\linewidth}{0.4pt}\\[0.5em]
+  \small 最后更新：\today
+\end{center}
+
+\end{document}

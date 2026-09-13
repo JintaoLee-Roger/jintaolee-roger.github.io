@@ -1,0 +1,270 @@
+publications:
+  - slug: gao2026clinothems
+    title: Massive-scale unlabeled field and labeled synthetic seismic datasets of global
+      shelf-edge clinothems
+    authors:
+    - name: Hui Gao
+    - name: Xinming Wu
+    - name: Jintao Li
+      self: true
+    - name: Xiaoming Sun
+    - name: Jiarun Yang
+    venue: Geophysical Journal International
+    shortVenue: GJI
+    year: 2026
+    citation: '"Massive-scale unlabeled field and labeled synthetic seismic datasets of
+      global shelf-edge clinothems." Geophysical Journal International (2026):
+      ggag295.'
+    articleNumber: ggag295
+    type: journal
+    featured: false
+    visible: true
+    links:
+    - label: Paper
+      href: https://doi.org/10.1093/gji/ggag295
+
+  - slug: han2024mamcl
+    title: 'MAMCL: Multi-Attributes Masking Contrastive Learning for Explainable Seismic
+      Facies Analysis'
+    authors:
+    - name: Long Han
+    - name: Xinming Wu
+    - name: Zhanxuan Hu
+    - name: Jintao Li
+      self: true
+    - name: Huijing Fang
+    venue: Computers & Geosciences
+    year: 2024
+    volume: '193'
+    pages: '105731'
+    citation: '"MAMCL: Multi-Attributes Masking Contrastive Learning for Explainable Seismic
+      Facies Analysis." Computers & Geosciences 193 (2024): 105731.'
+    type: journal
+    featured: false
+    visible: true
+    links:
+    - label: Paper
+      href: https://www.sciencedirect.com/science/article/abs/pii/S0098300424002140
+
+  - slug: li2022sr_tgrs
+    title: Deep Learning for Simultaneous Seismic Image Super-Resolution and Denoising
+    authors:
+    - name: Jintao Li
+      self: true
+    - name: Xinming Wu
+    - name: Zhanxuan Hu
+    venue: IEEE Transactions on Geoscience and Remote Sensing
+    shortVenue: IEEE TGRS
+    year: 2022
+    volume: '60'
+    pages: 1-11
+    citation: '"Deep Learning for Simultaneous Seismic Image Super-Resolution and Denoising."
+      IEEE Transactions on Geoscience and Remote Sensing 60 (2022): 1-11.'
+    type: journal
+    featured: true
+    visible: true
+    highlights:
+    - label:
+        zh: IF 9.4.
+        en: IF 9.4.
+      tone: impact
+    - label:
+        zh: ESI Highly Cited Paper.
+        en: ESI Highly Cited Paper.
+      tone: impact
+    links:
+    - label: Paper
+      href: https://ieeexplore.ieee.org/document/9364884/
+    - label: Code
+      href: https://github.com/JintaoLee-Roger/SeismicSuperResolution
+    - label: PDF
+      href: "/files/pubs/li22tgrs-sr.pdf"
+
+  - slug: li2023facies
+    title: Unsupervised Contrastive Learning for Seismic Facies Characterization
+    authors:
+    - name: Jintao Li
+      self: true
+    - name: Xinming Wu
+    - name: Yueming Ye
+    - name: Cun Yang
+    - name: Zhanxuan Hu
+    - name: Xiaoming Sun
+    - name: Tao Zhao
+    venue: Geophysics
+    year: 2023
+    volume: '88'
+    issue: '1'
+    pages: WA81-WA89
+    citation: '"Unsupervised Contrastive Learning for Seismic Facies Characterization."
+      Geophysics 88, no. 1 (2023): WA81-WA89.'
+    type: journal
+    featured: true
+    visible: true
+    links:
+    - label: Paper
+      href: https://library.seg.org/doi/10.1190/geo2022-0148.1
+    - label: PDF
+      href: "/files/pubs/li2023geo-facies.pdf"
+
+  - slug: li2025cigvis
+    title: 'CIGVis: An Open-Source Python Tool for Real-Time Interactive Visualization
+      of Multidimensional Geophysical Data'
+    authors:
+    - name: Jintao Li
+      self: true
+    - name: Yunzhi Shi
+    - name: Xinming Wu
+    venue: Geophysics
+    year: 2025
+    volume: '90'
+    issue: '1'
+    pages: F1-F10
+    citation: '"CIGVis: An open-source Python tool for the real-time interactive visualization
+      of multidimensional geophysical data." Geophysics 90, no. 1 (2025): F1-F10.'
+    type: journal
+    featured: true
+    visible: true
+    links:
+    - label: Paper
+      href: https://library.seg.org/doi/abs/10.1190/geo2024-0041.1
+    - label: Code
+      href: https://github.com/JintaoLee-Roger/cigvis
+    - label: PDF
+      href: "/files/pubs/li2024geo-cigvis.pdf"
+    - label: More Details
+      href: "/research/2024-cigvis-geo/"
+
+  - slug: li2026memory
+    title: Memory-Efficient Full-Volume Inference for Large-Scale 3D Dense Prediction
+      without Performance Degradation
+    authors:
+    - name: Jintao Li
+      self: true
+    - name: Xinming Wu
+    venue: Communications Engineering
+    year: 2026
+    volume: '5'
+    articleNumber: '20'
+    citation: '"Memory-Efficient Full-Volume Inference for Large-Scale 3D Dense Prediction
+      without Performance Degradation." Communications Engineering 5, 20 (2026).'
+    type: journal
+    featured: true
+    visible: true
+    highlights:
+    - label:
+        zh: IF 7.0.
+        en: IF 7.0.
+      tone: impact
+    - label:
+        zh: Nature Portfolio.
+        en: Nature Portfolio.
+      tone: impact
+    - label:
+        zh: This paper was unanimously recognized by all three reviewers.
+        en: This paper was unanimously recognized by all three reviewers.
+      tone: note
+    links:
+    - label: Paper
+      href: https://doi.org/10.1038/s44172-025-00576-2
+    - label: Code
+      href: https://github.com/JintaoLee-Roger/torchseis
+    - label: PDF
+      href: "/files/pubs/li26infer_ce.pdf"
+    - label: Peer Review
+      href: https://mts-commseng.nature.com/commseng_files/2025/11/26/00002959/02/2959_2_tpr_0_t69g1p_convrt.pdf
+    - label: More Details
+      href: "/research/2025-infer-ce/"
+
+  - slug: li2026sr_tip
+    title: High-Fidelity Seismic Super-Resolution Using Prior-Informed Deep Learning with
+      3D Awareness
+    authors:
+    - name: Jintao Li
+      self: true
+    - name: Xinming Wu
+    - name: Xianwen Zhang
+    - name: Xin Du
+    - name: Xiaoming Sun
+    - name: Bao Deng
+    - name: Guangyu Wang
+    venue: IEEE Transactions on Image Processing
+    shortVenue: IEEE TIP
+    year: 2026
+    volume: '35'
+    pages: 2152-2166
+    citation: '"High-Fidelity Seismic Super-Resolution Using Prior-Informed Deep Learning
+      With 3D Awareness." IEEE Transactions on Image Processing 35 (2026): 2152-2166.'
+    type: journal
+    featured: true
+    visible: true
+    highlights:
+    - label:
+        zh: CCF-A, IF 15.3.
+        en: CCF-A, IF 15.3.
+      tone: impact
+    links:
+    - label: Paper
+      href: https://ieeexplore.ieee.org/document/11399639
+    - label: PDF
+      href: "/files/pubs/li2026tip-sr.pdf"
+    - label: More Details
+      href: "/research/2025-sr-tip/"
+
+  - slug: sheng2025sfm
+    title: 'Seismic Foundation Model: A Next Generation Deep-Learning Model in Geophysics'
+    authors:
+    - name: Hanlin Sheng
+    - name: Xinming Wu
+    - name: Xu Si
+    - name: Jintao Li
+      self: true
+    - name: Sibo Zhang
+    - name: Xudong Duan
+    venue: Geophysics
+    year: 2025
+    volume: '90'
+    issue: '2'
+    pages: IM59-IM79
+    citation: '"Seismic Foundation Model: A Next Generation Deep-Learning Model in Geophysics."
+      Geophysics 90, no. 2 (2025): IM59-IM79.'
+    type: journal
+    featured: false
+    visible: true
+    highlights:
+    - label:
+        zh: ESI 高被引论文。
+        en: ESI Highly Cited Paper.
+      tone: impact
+    links:
+    - label: Paper
+      href: https://library.seg.org/doi/abs/10.1190/geo2024-0262.1
+    - label: Code
+      href: https://github.com/shenghanlin/SeismicFoundationModel
+
+  - slug: wang2026reflectivity
+    title: Deep Learning-based Seismic Reflectivity Estimation by Pre-training on Labeled
+      Synthetic Data and Physics-guided Fine-tuning in Field Data
+    authors:
+    - name: Yuting Wang
+    - name: Jintao Li
+      self: true
+      corresponding: true
+    - name: Xiaoming Sun
+    - name: Xinming Wu
+      corresponding: true
+    venue: Geophysical Journal International
+    shortVenue: GJI
+    year: 2026
+    articleNumber: ggag317
+    citation: '"Deep Learning-based Seismic Reflectivity Estimation by Pre-training on
+      Labeled Synthetic Data and Physics-guided Fine-tuning in Field Data." Geophysical
+      Journal International (2026): ggag317.'
+    type: journal
+    featured: false
+    visible: true
+    links:
+    - label: Paper
+      href: https://doi.org/10.1093/gji/ggag317
+    - label: More Details
+      href: "/research/2026-reflectivity-geo/"

@@ -1,0 +1,227 @@
+% Shared bibliography behavior for all selectable citation styles.
+\usepackage{etoolbox}
+
+\ifdefstring{\CVReferenceStyle}{chicago}{%
+  \usepackage[
+    authordate,
+    backend=biber,
+    maxbibnames=99,
+    giveninits=false,
+    doi=true,
+    url=true,
+    isbn=false,
+    labelnumber=true,
+    defernumbers=true
+  ]{biblatex-chicago}
+}{%
+  \ifdefstring{\CVReferenceStyle}{harvard}{%
+    \usepackage[
+      backend=biber,
+      style=authoryear,
+      maxbibnames=99,
+      giveninits=true,
+      uniquename=init,
+      dashed=false,
+      doi=true,
+      url=true,
+      isbn=false,
+      labelnumber=true,
+      defernumbers=true
+    ]{biblatex}
+  }{%
+    \ifdefstring{\CVReferenceStyle}{ieee}{%
+      \usepackage[
+        backend=biber,
+        style=ieee,
+        maxbibnames=99,
+        giveninits=true,
+        defernumbers=true,
+        doi=true,
+        url=true,
+        isbn=false
+      ]{biblatex}
+    }{%
+      \PackageError{cv}{Unknown bibliography style '\CVReferenceStyle'}%
+        {Use chicago, harvard, or ieee in reference-style.tex.}
+    }%
+  }%
+}
+
+\addbibresource{ref.bib}
+
+% Keep abbreviations separate from official journal titles in ref.bib.
+\newcommand*{\cvjournalabbreviation}{%
+  \iffieldundef{shortjournal}{}{\addspace\mkbibparens{\thefield{shortjournal}}}}
+% Chicago uses an inner field format; other styles print journaltitle directly.
+\DeclareFieldFormat{journaltitle}{\mkbibbold{\mkbibemph{#1\isdot}}}
+\DeclareFieldFormat{injournaltitle}{\mkbibbold{\mkbibemph{#1\isdot}}}
+\ifdefstring{\CVReferenceStyle}{chicago}{%
+  \DeclareFieldFormat{jtnoformat}{\mkbibbold{#1\cvjournalabbreviation}}
+}{%
+  \DeclareFieldFormat{journaltitle}{\mkbibbold{\mkbibemph{#1\cvjournalabbreviation\isdot}}}
+}
+
+% Higher sortkey values appear first in every citation style.
+\DeclareSortingTemplate{cvsort}{
+  \sort[direction=descending]{\field{sortkey}}
+  \sort[direction=descending]{\field{year}}
+  \sort{\field{author}}
+  \sort{\field{title}}
+}
+\ExecuteBibliographyOptions{sorting=cvsort,maxbibnames=99}
+\AtBeginBibliography{\setlength{\emergencystretch}{2em}}
+
+% Harvard bibliography: family names first, initials, bare year, sentence-case
+% article titles, and comma-separated journal/volume/page details.
+\ifdefstring{\CVReferenceStyle}{harvard}{%
+  \DeclareNameAlias{sortname}{family-given}
+  \DeclareNameAlias{author}{family-given}
+  \DeclareNameAlias{editor}{family-given}
+  \DeclareNameAlias{translator}{family-given}
+  \DeclareDelimFormat[bib]{multinamedelim}{\addcomma\space}
+  \DeclareDelimFormat[bib]{finalnamedelim}{\space\bibstring{and}\space}
+  \DeclareDelimFormat[bib]{nameyeardelim}{\addcomma\space}
+  \renewbibmacro*{date+extradate}{%
+    \iffieldundef{labelyear}
+      {}
+      {\printlabeldateextra}}
+  \DeclareFieldFormat[article,inproceedings]{title}{#1\isdot}
+  \DeclareFieldFormat{cvharvardtitlecase}{\MakeSentenceCase{#1}}
+  \renewbibmacro*{title}{%
+    \ifboolexpr{
+      test {\iffieldundef{title}}
+      and
+      test {\iffieldundef{subtitle}}
+    }
+      {}
+      {\printtext[title]{%
+         \printfield[cvharvardtitlecase]{title}%
+         \setunit{\subtitlepunct}%
+         \printfield[cvharvardtitlecase]{subtitle}}%
+       \newunit}%
+    \printfield{titleaddon}}
+  \renewbibmacro*{in:}{%
+    \ifentrytype{article}
+      {}
+      {\printtext{\bibstring{in}\intitlepunct}}}
+  \renewbibmacro*{journal+issuetitle}{%
+    \usebibmacro{journal}%
+    \setunit*{\addcomma\space}%
+    \printfield{volume}%
+    \iffieldundef{number}
+      {}
+      {\setunit*{\addspace}%
+       \printtext[parens]{\printfield{number}}}%
+    \newunit}
+  \renewbibmacro*{note+pages}{%
+    \printfield{note}%
+    \setunit{\addcomma\space}%
+    \printfield{pages}%
+    \newunit}
+}{}
+
+% CV entries stay numbered independently of the selected citation style.
+\DeclareFieldFormat{cvlabelnumber}{#1.}
+\defbibenvironment{cvbibliography}
+  {\list
+     {\printfield[cvlabelnumber]{labelnumber}}
+     {\setlength{\labelwidth}{1.6em}%
+      \setlength{\leftmargin}{2.2em}%
+      \setlength{\labelsep}{0.6em}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}%
+      \renewcommand*{\makelabel}[1]{\hss##1}}}
+  {\endlist}
+  {\item}
+
+% usera is a CV-only note and is printed after the complete citation and DOI.
+\DeclareFieldFormat{usera}{#1}
+\renewbibmacro*{finentry}{%
+  \iffieldundef{usera}
+    {\finentry}
+    {\setunit{\addperiod}%
+     \printfield{usera}%
+     \renewcommand*{\finentrypunct}{}%
+     \finentry}}
+
+% Annotation roles are independent and may be combined with commas:
+% highlight = bold, cofirst = *, corresponding = dagger.
+\newbibmacro*{cv:name:markers}{%
+  \ifitemannotation{cofirst}{\textsuperscript{*}}{}%
+  \ifitemannotation{corresponding}
+    {\textsuperscript{\ensuremath{\dagger}}}
+    {}}
+
+\ifdefstring{\CVReferenceStyle}{chicago}{%
+  % Chicago formats name parts directly, so highlight each component.
+  \newcommand*{\cvnamepart}[1]{%
+    \ifitemannotation{highlight}{\textbf{#1}}{#1}}
+  \renewcommand*{\mkbibnamefamily}[1]{\cvnamepart{#1}}
+  \renewcommand*{\mkbibnamegiven}[1]{\cvnamepart{#1}}
+  \renewcommand*{\mkbibnameprefix}[1]{\cvnamepart{#1}}
+  \renewcommand*{\mkbibnamesuffix}[1]{\cvnamepart{#1}}
+
+  \renewbibmacro*{name:family-given}[4]{%
+    \ifuseprefix
+      {\usebibmacro{name:delim}{#3#1}%
+       \usebibmacro{name:hook}{#3#1}%
+       \ifdefvoid{#3}{}{%
+         \ifcapital
+           {\mkbibnameprefix{\MakeCapital{#3}}\isdot}
+           {\mkbibnameprefix{#3}\isdot}%
+         \ifprefchar{}{\bibnamedelimc}}%
+       \mkbibnamefamily{#1}\isdot
+       \ifdefvoid{#2}{}{\revsdnamepunct\bibnamedelimd\mkbibnamegiven{#2}\isdot}%
+       \ifdefvoid{#4}{}{\revsdnamepunct\bibnamedelimd\mkbibnamesuffix{#4}\isdot}}
+      {\usebibmacro{name:delim}{#1}%
+       \usebibmacro{name:hook}{#1}%
+       \mkbibnamefamily{#1}\isdot
+       \ifboolexpr{
+         test {\ifdefvoid{#2}}
+         and
+         test {\ifdefvoid{#3}}
+       }
+         {}{\revsdnamepunct}%
+       \ifdefvoid{#2}{}{\bibnamedelimd\mkbibnamegiven{#2}\isdot}%
+       \ifdefvoid{#3}{}{\bibnamedelimd\mkbibnameprefix{#3}\isdot}%
+       \ifdefvoid{#4}{}{\revsdnamepunct\bibnamedelimd\mkbibnamesuffix{#4}\isdot}}%
+    \usebibmacro{cv:name:markers}}
+
+  \renewbibmacro*{name:given-family}[4]{%
+    \usebibmacro{name:delim}{#2#3#1}%
+    \usebibmacro{name:hook}{#2#3#1}%
+    \ifdefvoid{#2}{}{\mkbibnamegiven{#2}\isdot\bibnamedelimd}%
+    \ifdefvoid{#3}{}{%
+      \mkbibnameprefix{#3}\isdot
+      \ifprefchar
+        {}
+        {\ifuseprefix{\bibnamedelimc}{\bibnamedelimd}}}%
+    \mkbibnamefamily{#1}\isdot
+    \ifdefvoid{#4}{}{%
+      \iftoggle{cms@jrcomma}
+        {\ifnumeral{#4}
+           {\bibnamedelimd\mkbibnamesuffix{#4}\isdot}
+           {\revsdnamepunct\bibnamedelimd\mkbibnamesuffix{#4}\isdot
+            \ifboolexpr{
+              test {\ifnumless{\value{listcount}}{\value{listtotal}}}
+              and
+              test {\ifnumless{\value{listcount}}{\value{maxnames}}}
+            }
+              {\revsdnamepunct}
+              {}}}
+        {\bibnamedelimd\mkbibnamesuffix{#4}\isdot}}%
+    \usebibmacro{cv:name:markers}}
+}{%
+  % Standard BibLaTeX styles expose a complete-name wrapper.
+  \renewcommand*{\mkbibcompletename}[1]{%
+    \ifitemannotation{highlight}{\textbf{#1}}{#1}%
+    \usebibmacro{cv:name:markers}}
+}
+
+\newcommand{\cvprintbibliography}[1]{%
+  \printbibliography[
+    env=cvbibliography,
+    heading=none,
+    resetnumbers=true,
+    keyword=#1
+  ]}

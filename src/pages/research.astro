@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import T from "../components/T.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { getResearchAreas, getSiteSettings } from "../lib/content";
+
+const settings = await getSiteSettings();
+const areas = await getResearchAreas();
+---
+
+<BaseLayout title={`Research | ${settings.name.en}`} description={settings.tagline.en} settings={settings}>
+  <section class="page-hero research-hero">
+    <p class="kicker"><span class="i18n i18n-zh">研究</span><span class="i18n i18n-en">Research</span></p>
+    <h1><span class="i18n i18n-zh">用人工智能理解地球</span><span class="i18n i18n-en">AI for understanding the Earth</span></h1>
+    <p><span class="i18n i18n-zh">我的研究位于地球物理、计算方法与机器学习的交叉地带，关注能够深化科学认识、并在真实场景中保持价值的方法。</span><span class="i18n i18n-en">I work at the intersection of geophysics, computation, and machine learning, with an interest in methods that deepen scientific understanding and remain useful in real-world settings.</span></p>
+  </section>
+
+  <section class="section">
+    <SectionHeading
+      eyebrow={{ zh: "代表性工作", en: "Selected Work" }}
+      title={{ zh: "一些近期研究", en: "A selection of recent research" }}
+    />
+    <div class="research-feature-list">
+      {areas.map((area, index) => (
+        <article class:list={["research-feature", area.image && "has-media"]}>
+          {area.image && (
+            <a class="research-feature-media" href={`/research/${area.slug}/`}>
+              <img src={area.image} alt={area.imageAlt?.en ?? area.title.en} loading="lazy" />
+            </a>
+          )}
+          <div class="research-feature-body">
+            <span class="index-label">{String(index + 1).padStart(2, "0")}</span>
+            <h2><a href={`/research/${area.slug}/`}><T value={area.title} /></a></h2>
+            <p><T value={area.summary} /></p>
+            {area.progress && (
+              <p class="research-progress">
+                <span class="i18n i18n-zh" set:html={area.progress.zh} />
+                <span class="i18n i18n-en" set:html={area.progress.en} />
+              </p>
+            )}
+            <ul class="tag-list compact">
+              {area.tags.map((tag) => <li><T value={tag} /></li>)}
+            </ul>
+            {area.links.length > 0 && (
+              <div class="inline-links">
+                {area.links.map((link) => <a href={link.href}>{link.label}</a>)}
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

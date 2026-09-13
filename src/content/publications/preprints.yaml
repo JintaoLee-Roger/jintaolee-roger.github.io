@@ -1,0 +1,93 @@
+publications:
+  - slug: dou2026gem
+    title: 'Geological Everything Model 3D: A Promptable Foundation Model for Unified
+      and Zero-Shot Subsurface Understanding'
+    authors:
+    - name: Yimin Dou
+    - name: Xinming Wu
+    - name: Nathan L. Bangs
+    - name: Harpreet Singh Sethi
+    - name: Jintao Li
+      self: true
+    - name: Hang Gao
+    - name: Zhixiang Guo
+    venue: Under revision
+    year: 2026
+    citation: '"Geological Everything Model 3D: A Promptable Foundation Model for Unified
+      and Zero-Shot Subsurface Understanding." Under revision 2026.'
+    type: preprint
+    status: under-review
+    featured: false
+    visible: true
+    links:
+    - label: arXiv
+      href: https://arxiv.org/abs/2507.00419
+    - label: Project
+      href: https://douyimin.github.io/GEM/
+    - label: Code
+      href: https://github.com/douyimin/GEM
+
+  - slug: han2026diffusion
+    title: A Universal Diffusion Regularizer for Geophysical Inversion
+    authors:
+    - name: Long Han
+    - name: Xinming Wu
+      corresponding: true
+    - name: Xiaoming Sun
+    - name: Jintao Li
+      self: true
+    - name: Yimin Dou
+    venue: Submitted
+    year: 2026
+    citation: '"A Universal Diffusion Regularizer for Geophysical Inversion." Submitted
+      2026.'
+    type: preprint
+    status: under-review
+    featured: false
+    visible: true
+
+  - slug: li2026filark
+    title: 'FiLark: a streaming-first software framework for end-to-end exploration,
+      annotation, and algorithm integration in distributed acoustic sensing'
+    authors:
+    - name: Jintao Li
+      self: true
+    - name: Weichang Li
+    - name: Kai Tong
+    - name: Xaingyu Guo
+    venue: 'arXiv preprint arXiv:2605.20132'
+    year: 2026
+    citation: '"FiLark: a streaming-first software framework for end-to-end exploration,
+      annotation, and algorithm integration in distributed acoustic sensing." arXiv
+      preprint arXiv:2605.20132 (2026).'
+    type: preprint
+    status: preprint
+    featured: false
+    visible: true
+    links:
+    - label: arXiv
+      href: https://arxiv.org/abs/2605.20132
+
+  - slug: sheng2026fm
+    title: On the Workflow, Opportunities and Challenges of Developing Foundation Model
+      in Geophysics
+    authors:
+    - name: Hanlin Sheng
+    - name: Xinming Wu
+    - name: Hang Gao
+    - name: Haibin Di
+    - name: Sergey Fomel
+    - name: Jintao Li
+      self: true
+    - name: Xu Si
+    venue: Review paper
+    year: 2026
+    citation: '"On the Workflow, Opportunities and Challenges of Developing Foundation
+      Model in Geophysics." Review paper 2026.'
+    type: preprint
+    status: preprint
+    featured: false
+    visible: true
+    links:
+    - label: arXiv
+      href: https://arxiv.org/abs/2504.17384

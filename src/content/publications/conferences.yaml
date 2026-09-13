@@ -1,0 +1,110 @@
+publications:
+  - slug: li2020seg_sr
+    title: Deep Learning for Simultaneous Seismic Super-Resolution and Denoising
+    authors:
+    - name: Jintao Li
+      self: true
+    - name: Xinming Wu
+    - name: Zhanxuan Hu
+    venue: SEG International Exposition and Annual Meeting
+    year: 2020
+    citation: '"Deep Learning for Simultaneous Seismic Super-Resolution and Denoising."
+      SEG International Exposition and Annual Meeting (2020).'
+    type: conference
+    featured: false
+    visible: true
+    highlights:
+    - label:
+        zh: EI indexed.
+        en: EI indexed.
+      tone: note
+    links:
+    - label: Paper
+      href: https://library.seg.org/doi/10.1190/segam2020-3426412.1
+    - label: Code
+      href: https://github.com/JintaoLee-Roger/SeismicSuperResolution
+    - label: PDF
+      href: "/files/pubs/li2020seg-sr.pdf"
+
+  - slug: li2024cigvis_eage
+    title: 'CIGVis: An Open-Source Python Tool for Real-Time Interactive Visualization
+      of Multidimensional Geophysical Data'
+    authors:
+    - name: Jintao Li
+      self: true
+    - name: Yunzhi Shi
+    - name: Xinming Wu
+    venue: 85th EAGE Annual Conference & Exhibition
+    year: 2024
+    citation: '"CIGVis: An Open-Source Python Tool for Real-Time Interactive Visualization
+      of Multidimensional Geophysical Data." 85th EAGE Annual Conference & Exhibition
+      (2024).'
+    type: conference
+    featured: false
+    visible: true
+    highlights:
+    - label:
+        zh: EI indexed.
+        en: EI indexed.
+      tone: note
+    links:
+    - label: Paper
+      href: https://www.earthdoc.org/content/papers/10.3997/2214-4609.2024101065
+    - label: Code
+      href: https://github.com/JintaoLee-Roger/cigvis
+    - label: PDF
+      href: "/files/pubs/li2024eage-cigvis.pdf"
+
+  - slug: sheng2024sfm_eage
+    title: 'Seismic Foundation Model (SFM): All-Purpose Feature Extraction from Seismic
+      Data for Diverse Geophysical Applications'
+    authors:
+    - name: Hanlin Sheng
+    - name: Xinming Wu
+    - name: Xu Si
+    - name: Jintao Li
+      self: true
+    - name: Sibo Zhang
+    - name: Xudong Duan
+    venue: 85th EAGE Annual Conference & Exhibition
+    year: 2024
+    citation: '"Seismic Foundation Model (SFM): All-Purpose Feature Extraction from Seismic
+      Data for Diverse Geophysical Applications." 85th EAGE Annual Conference & Exhibition
+      (2024).'
+    type: conference
+    featured: false
+    visible: true
+    highlights:
+    - label:
+        zh: EI indexed.
+        en: EI indexed.
+      tone: note
+    links:
+    - label: Paper
+      href: https://www.earthdoc.org/content/papers/10.3997/2214-4609.202410133
+    - label: Code
+      href: https://github.com/shenghanlin/SeismicFoundationModel
+
+  - slug: si2024agu
+    title: 'Tuning into Earth''s Voice: Leveraging Large Language Models for Earthquake
+      Detection'
+    authors:
+    - name: Xu Si
+    - name: Xinming Wu
+    - name: Jintao Li
+      self: true
+    - name: Xin Cui
+    - name: Hanlin Sheng
+    - name: Hang Gao
+    - name: Zefeng Li
+    - name: Zhigang Peng
+    venue: AGU Fall Meeting Abstracts
+    year: 2024
+    citation: '"Tuning into Earth''s Voice: Leveraging Large Language Models for Earthquake
+      Detection." AGU Fall Meeting Abstracts (2024).'
+    type: conference
+    featured: false
+    visible: true
+    links:
+    - label: Abstract
+      href: https://ui.adsabs.harvard.edu/abs/2024AGUFMS11B.3384S/abstract

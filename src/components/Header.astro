@@ -1,0 +1,54 @@
+---
+import T from "./T.astro";
+
+const { settings } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: "/", label: { zh: "关于", en: "About" } },
+  { href: "/research/", label: { zh: "研究", en: "Research" } },
+  { href: "/publications/", label: { zh: "论文", en: "Publications" } },
+  { href: "/software/", label: { zh: "软件", en: "Software" } },
+  { href: "/cv/", label: { zh: "简历", en: "CV" } },
+];
+
+const isActive = (href: string) => href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<header class="site-header" data-site-header>
+  <a class="skip-link" href="#main">
+    <span class="i18n i18n-zh">跳到正文</span>
+    <span class="i18n i18n-en">Skip to content</span>
+  </a>
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label="Jintao Li home">
+      <span class="brand-mark" aria-hidden="true">JL</span>
+      <span class="brand-text"><T value={settings.name} /></span>
+    </a>
+
+    <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation" data-menu-toggle>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav id="primary-navigation" class="primary-nav" aria-label="Primary navigation" data-primary-nav>
+      {navItems.map((item) => (
+        <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+          <T value={item.label} />
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-actions" aria-label="Display controls">
+      <div class="segmented-control" aria-label="Language">
+        <button type="button" data-lang-option="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang-option="zh" aria-pressed="false">中文</button>
+      </div>
+      <button class="theme-button" type="button" aria-label="Switch color theme" aria-pressed="false" data-theme-toggle>
+        <svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+        <svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4a8.5 8.5 0 1 0 11.2 11.2Z"></path></svg>
+      </button>
+    </div>
+  </div>
+</header>

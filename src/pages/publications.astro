@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PublicationItem from "../components/PublicationItem.astro";
+import { getPublications, getSiteSettings } from "../lib/content";
+
+const settings = await getSiteSettings();
+const publications = await getPublications();
+const journalPriority = new Map([
+  ["wang2026reflectivity", 2],
+  ["gao2026clinothems", 1],
+]);
+const journalArticles = publications
+  .filter((item) => item.type === "journal")
+  .sort((a, b) => (journalPriority.get(b.slug) ?? 0) - (journalPriority.get(a.slug) ?? 0));
+
+const publicationGroups = [
+  {
+    id: "preprints-under-review",
+    title: { zh: "预印本与审稿中", en: "Preprints & Under Review" },
+    description: { zh: "已公开的预印本，以及已投稿或正在修改的研究工作。", en: "Publicly available preprints and manuscripts currently submitted or under revision." },
+    items: publications.filter((item) => item.type === "preprint"),
+  },
+  {
+    id: "journals",
+    title: { zh: "期刊论文", en: "Journal Articles" },
+    description: { zh: "经过同行评议并正式发表的期刊论文。", en: "Peer-reviewed articles published in academic journals." },
+    items: journalArticles,
+  },
+  {
+    id: "conferences",
+    title: { zh: "会议论文", en: "Conference Papers" },
+    description: { zh: "会议论文、摘要与学术报告。", en: "Conference papers, abstracts, and presentations." },
+    items: publications.filter((item) => item.type === "conference"),
+  },
+].filter((group) => group.items.length > 0);
+---
+
+<BaseLayout title={`Publications | ${settings.name.en}`} description="Selected publications and research outputs" settings={settings}>
+  <section class="page-hero">
+    <p class="kicker"><span class="i18n i18n-zh">论文</span><span class="i18n i18n-en">Publications</span></p>
+    <h1><span class="i18n i18n-zh">论文与预印本</span><span class="i18n i18n-en">Publications & Preprints</span></h1>
+    <p>
+      <span class="i18n i18n-zh">我持续投入 <strong>AI4Geoscience</strong> 研究，面向地震与 DAS 等复杂数据环境设计并落地机器学习方法。我的工作聚焦地下数据处理、解释、反演、建模与地球物理监测中的实际需求，并致力于融合地球科学与计算方法。相关成果发表于 <strong>Geophysics、IEEE TIP、Communications Engineering、IEEE TGRS、GJI 和 Computers & Geosciences</strong> 等期刊。</span>
+      <span class="i18n i18n-en">I actively contribute to <strong>AI4Geoscience</strong> by designing and deploying machine-learning solutions for complex data environments such as seismic and DAS. My work addresses practical needs in subsurface data processing, interpretation, inversion, modeling, and geophysical monitoring. By integrating Earth science with computational methods, this research has been published in journals including <strong>Geophysics, IEEE TIP, Communications Engineering, IEEE TGRS, GJI, and Computers & Geosciences</strong>.</span>
+    </p>
+    <div class="publication-legend" aria-label="Publication notation">
+      <span><strong>*</strong><span class="i18n i18n-zh">第一作者或共同第一作者</span><span class="i18n i18n-en">First or co-first author</span></span>
+      <span><strong>†</strong><span class="i18n i18n-zh">通讯作者</span><span class="i18n i18n-en">Corresponding author</span></span>
+    </div>
+    <a class="button-link publication-export" href="/publications.bib" download="jintao-li-publications.bib">
+      <span class="i18n i18n-zh">导出全部 BibTeX</span>
+      <span class="i18n i18n-en">Export all BibTeX</span>
+    </a>
+  </section>
+
+  <section class="section publication-list">
+    {publicationGroups.length > 0 ? (
+      publicationGroups.map((group, index) => (
+        <section class="publication-category" id={group.id}>
+          <header class="publication-category-header">
+            <span class="section-number">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <h2><span class="i18n i18n-zh">{group.title.zh}</span><span class="i18n i18n-en">{group.title.en}</span></h2>
+              <p><span class="i18n i18n-zh">{group.description.zh}</span><span class="i18n i18n-en">{group.description.en}</span></p>
+            </div>
+            <span class="publication-count">{group.items.length}</span>
+          </header>
+          <div class="publication-category-list">
+            {[...new Set(group.items.map((item) => item.year))].map((year) => (
+              <div class="publication-year-group">
+                <h3>{year}</h3>
+                <div class="publication-year-items">
+                  {group.items.filter((item) => item.year === year).map((publication) => (
+                    <PublicationItem publication={publication} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))
+    ) : (
+      <div class="empty-state">
+        <p><span class="i18n i18n-zh">暂无论文条目。</span><span class="i18n i18n-en">No publication entries yet.</span></p>
+      </div>
+    )}
+  </section>
+</BaseLayout>

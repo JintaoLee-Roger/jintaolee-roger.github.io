@@ -1,0 +1,43 @@
+# Dependencies and Astro build output
+node_modules/
+/dist/
+/.astro/
+
+# Local environment (keep shareable examples)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Logs and local working files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+/tmp/
+/temp/
+.cache/
+.DS_Store
+._*
+*.swp
+*.swo
+*~
+
+# Local LaTeX build artifacts; stale files can cause cross-version Overleaf loops.
+# Published PDFs in public/ remain version-controlled.
+/cv_*/*.aux
+/cv_*/*.bbl
+/cv_*/*.bcf
+/cv_*/*.blg
+/cv_*/*.fdb_latexmk
+/cv_*/*.fls
+/cv_*/*.log
+/cv_*/*.out
+/cv_*/*.toc
+/cv_*/*.lof
+/cv_*/*.lot
+/cv_*/*.synctex*
+/cv_*/*.run.xml
+/cv_*/*.xdv
+/cv_*/*.dvi
+/cv_*/*.pdf

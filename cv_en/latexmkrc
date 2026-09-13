@@ -1,0 +1,2 @@
+# Ignore bibliography XML bookkeeping to avoid redundant TeX passes.
+$hash_calc_ignore_pattern{'xml'} = '^';

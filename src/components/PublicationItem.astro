@@ -1,0 +1,145 @@
+---
+import T from "./T.astro";
+import {
+  formatBibTeX,
+  formatChicagoCitation,
+  getDisplayCitationParts,
+  getDisplayAuthors,
+} from "../lib/publications";
+
+const { publication, compact = false } = Astro.props;
+
+const typeLabels: Record<string, { zh: string; en: string }> = {
+  journal: { zh: "期刊论文", en: "Journal Article" },
+  conference: { zh: "会议论文", en: "Conference Paper" },
+  preprint: { zh: "预印本", en: "Preprint" },
+  book: { zh: "著作", en: "Book" },
+  patent: { zh: "专利", en: "Patent" },
+};
+
+const typeLabel = publication.status === "under-review"
+  ? { zh: "审稿中", en: "Under Review" }
+  : typeLabels[publication.type] ?? { zh: publication.type, en: publication.type };
+const authors = getDisplayAuthors(publication);
+const citation = getDisplayCitationParts(publication);
+const chicagoCitation = formatChicagoCitation(publication);
+const bibtexCitation = formatBibTeX(publication);
+const highlights = publication.highlights ?? [];
+const citationId = `citation-${publication.slug.replace(/[^a-zA-Z0-9_-]/g, "-")}`;
+const chicagoTabId = `${citationId}-chicago-tab`;
+const bibtexTabId = `${citationId}-bibtex-tab`;
+
+const authorSeparator = (index: number) => {
+  if (index === 0) {
+    return "";
+  }
+
+  if (index === authors.length - 1) {
+    return authors.length === 2 ? " and " : ", and ";
+  }
+
+  return ", ";
+};
+---
+
+<article class:list={["publication-item", publication.featured && "is-featured"]} data-citation-root>
+  <div class="publication-main">
+    <div class="publication-topline">
+      <p class="publication-type">
+        <span class="i18n i18n-zh">{typeLabel.zh}</span>
+        <span class="i18n i18n-en">{typeLabel.en}</span>
+      </p>
+      {publication.featured && (
+        <span class="featured-label">
+          <span class="i18n i18n-zh">代表性成果</span>
+          <span class="i18n i18n-en">Featured</span>
+        </span>
+      )}
+    </div>
+    {highlights.length > 0 && (
+      <div class="publication-highlights" aria-label="Publication highlights">
+        {highlights.map((highlight: { label: { zh: string; en: string }; tone?: string }) => (
+          <span class:list={["publication-highlight", highlight.tone ?? "note"]}>
+            <T value={highlight.label} />
+          </span>
+        ))}
+      </div>
+    )}
+    <p class="publication-authors">
+      {authors.map((author, index) => (<>{authorSeparator(index)}<span class:list={[author.self && "is-self"]}>{author.displayName}</span>{author.equal && <sup title="First or co-first author">*</sup>}{author.corresponding && <sup title="Corresponding author">†</sup>}</>))}
+    </p>
+    <p class="publication-citation">
+      {citation.before}
+      {citation.venue && (
+        <strong class="publication-venue">{citation.venue}</strong>
+      )}
+      {citation.after}
+    </p>
+    {!compact && publication.abstract && (
+      <p class="publication-abstract">
+        <span class="i18n i18n-zh">{publication.abstract.zh}</span>
+        <span class="i18n i18n-en">{publication.abstract.en}</span>
+      </p>
+    )}
+    <div class="publication-actions">
+      {publication.links.length > 0 && (
+        <div class="inline-links">
+          {publication.links.map((link: { label: string; href: string }) => (
+            <a href={link.href}>{link.label}</a>
+          ))}
+        </div>
+      )}
+      <button class="cite-toggle" type="button" aria-expanded="false" aria-controls={citationId} data-cite-toggle>
+        <span class="i18n i18n-zh">引用</span>
+        <span class="i18n i18n-en">Cite</span>
+      </button>
+    </div>
+    <div class="citation-panel" id={citationId} data-citation-panel hidden>
+      <div class="citation-toolbar">
+        <div class="citation-tabs" role="tablist" aria-label="Citation format">
+          <button
+            class="citation-tab"
+            id={chicagoTabId}
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls={`${citationId}-chicago`}
+            data-citation-tab="chicago"
+          >Chicago</button>
+          <button
+            class="citation-tab"
+            id={bibtexTabId}
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls={`${citationId}-bibtex`}
+            tabindex="-1"
+            data-citation-tab="bibtex"
+          >BibTeX</button>
+        </div>
+        <div class="citation-copy-area">
+          <span class="citation-status" aria-live="polite" data-copy-status></span>
+          <button class="citation-copy" type="button" data-copy-citation>
+            <span class="i18n i18n-zh">复制</span>
+            <span class="i18n i18n-en">Copy</span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="citation-output"
+        id={`${citationId}-chicago`}
+        role="tabpanel"
+        aria-labelledby={chicagoTabId}
+        data-citation-format="chicago"
+      ><pre><code>{chicagoCitation}</code></pre></div>
+      <div
+        class="citation-output"
+        id={`${citationId}-bibtex`}
+        role="tabpanel"
+        aria-labelledby={bibtexTabId}
+        data-citation-format="bibtex"
+        hidden
+      ><pre><code>{bibtexCitation}</code></pre></div>
+    </div>
+  </div>
+</article>
