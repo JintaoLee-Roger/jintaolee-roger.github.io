@@ -22,6 +22,8 @@ publications:
     links:
     - label: Paper
       href: https://doi.org/10.1093/gji/ggag295
+    - label: PDF
+      href: https://academic.oup.com/gji/article-pdf/247/1/ggag295/70556247/ggag295.pdf
 
   - slug: han2024mamcl
     title: 'MAMCL: Multi-Attributes Masking Contrastive Learning for Explainable Seismic
@@ -266,5 +268,7 @@ publications:
     links:
     - label: Paper
       href: https://doi.org/10.1093/gji/ggag317
+    - label: PDF
+      href: https://academic.oup.com/gji/article-pdf/247/2/ggag317/70556234/ggag317.pdf
     - label: More Details
       href: "/research/2026-reflectivity-geo/"
